@@ -1,1 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>gem alert log in</title>
 
+<style>
+    body {
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: url("https://media1.tenor.com/m/EsfK9TdObxAAAAAd/gem-alarm-gem-alert.gif") no-repeat center center fixed;
+        background-size: cover;
+        color: white;
+        font-family: Arial, sans-serif;
+    }
+
+    .login-box {
+        text-align: center;
+        background: rgba(26, 26, 26, 0.85);
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0,0,0,0.6);
+    }
+
+    input {
+        width: 200px;
+        padding: 10px;
+        margin-top: 10px;
+        font-size: 16px;
+        border-radius: 5px;
+        border: none;
+    }
+
+    button {
+        margin-top: 12px;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+    }
+
+    #error {
+        margin-top: 10px;
+        color: red;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="login-box">
+    <h2>whats the magic word?</h2>
+    <input type="password" id="passwordInput" placeholder="Password">
+    <br>
+    <button onclick="checkPassword()">check magic word?</button>
+    <div id="error"></div>
+</div>
+
+<script>
+    // 🔑 Multiple allowed passwords
+    const passwords = [
+        "xab3y4",
+        "badideahere",
+        "tashatriplea"
+    ];
+
+    const gameURL = "YOUR_GITHUB_PAGES_LINK";
+
+    let attempts = 0;
+    const maxAttempts = 3;
+
+    function checkPassword() {
+        const entered = document.getElementById("passwordInput").value;
+
+        if (passwords.includes(entered)) {
+            openGame();
+            return;
+        }
+
+        attempts++;
+
+        if (attempts >= maxAttempts) {
+            lockScreen();
+        } else {
+            document.getElementById("error").innerText =
+                "Incorrect password (" + attempts + "/" + maxAttempts + ")";
+        }
+    }
+
+    function lockScreen() {
+        document.body.innerHTML =
+            "<div style='height:100vh;display:flex;justify-content:center;align-items:center;background:black;color:red;font-family:Arial;font-size:24px;text-align:center;'>get out of here bro 💀</div>";
+    }
+
+    function openGame() {
+        const win = window.open("", "_blank");
+
+        if (!win) {
+            alert("Popup blocked! Allow popups for this site.");
+            return;
+        }
+
+        const iframe = win.document.createElement("iframe");
+        iframe.src = gameURL;
+        iframe.style.width = "100%";
+        iframe.style.height = "100%";
+        iframe.style.border = "none";
+
+        win.document.body.style.margin = "0";
+        win.document.body.appendChild(iframe);
+    }
+
+    // Enter key support
+    document.getElementById("passwordInput").addEventListener("keydown", function(e) {
+        if (e.key === "Enter") {
+            checkPassword();
+        }
+    });
+</script>
+
+</body>
+</html>
