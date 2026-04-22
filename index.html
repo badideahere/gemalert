@@ -1,243 +1,331 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>GemAlert</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>GemAlert</title>
+	<style>
+		@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
 
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+		*,
+		*::before,
+		*::after {
+			box-sizing: border-box;
+			margin: 0;
+			padding: 0;
+		}
 
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      background: #111111;
-      position: relative;
-    }
+		body {
+			font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+			min-height: 100vh;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			overflow: hidden;
+			background: linear-gradient(135deg,
+					#0a0a1a 0%,
+					#0d1b3e 25%,
+					#1a0a2e 50%,
+					#0a1a2e 75%,
+					#0a0a1a 100%);
+			position: relative;
+		}
 
-    .bg-texture {
-      position: fixed;
-      inset: 0;
-      background:
-        radial-gradient(ellipse at 20% 30%, rgba(255,255,255,0.07) 0%, transparent 55%),
-        radial-gradient(ellipse at 80% 70%, rgba(255,255,255,0.05) 0%, transparent 55%),
-        radial-gradient(ellipse at 50% 50%, rgba(80,80,80,0.15) 0%, transparent 70%);
-      pointer-events: none;
-    }
+		body::before {
+			content: '';
+			position: fixed;
+			width: 600px;
+			height: 600px;
+			border-radius: 50%;
+			background: radial-gradient(circle, rgba(120, 80, 255, 0.18) 0%, transparent 70%);
+			top: -100px;
+			left: -100px;
+			animation: drift1 12s ease-in-out infinite alternate;
+			pointer-events: none;
+		}
 
-    .glass-card {
-      position: relative;
-      width: 420px;
-      padding: 52px 44px;
-      border-radius: 32px;
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(40px) saturate(150%);
-      -webkit-backdrop-filter: blur(40px) saturate(150%);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      box-shadow:
-        0 16px 64px rgba(0, 0, 0, 0.7),
-        0 4px 16px rgba(0, 0, 0, 0.5),
-        inset 0 1px 0 rgba(255, 255, 255, 0.25),
-        inset 0 -1px 0 rgba(255, 255, 255, 0.06),
-        inset 1px 0 0 rgba(255, 255, 255, 0.08),
-        inset -1px 0 0 rgba(255, 255, 255, 0.08);
-      text-align: center;
-      animation: cardIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
-      z-index: 1;
-    }
+		body::after {
+			content: '';
+			position: fixed;
+			width: 500px;
+			height: 500px;
+			border-radius: 50%;
+			background: radial-gradient(circle, rgba(0, 180, 255, 0.15) 0%, transparent 70%);
+			bottom: -80px;
+			right: -80px;
+			animation: drift2 15s ease-in-out infinite alternate;
+			pointer-events: none;
+		}
 
-    .glass-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: inherit;
-      background: linear-gradient(
-        135deg,
-        rgba(255, 255, 255, 0.12) 0%,
-        rgba(255, 255, 255, 0.0) 40%,
-        rgba(255, 255, 255, 0.04) 100%
-      );
-      pointer-events: none;
-    }
+		@keyframes drift1 {
+			from {
+				transform: translate(0, 0) scale(1);
+			}
 
-    .glass-card::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 20px;
-      right: 20px;
-      height: 1px;
-      background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(255, 255, 255, 0.55) 35%,
-        rgba(255, 255, 255, 0.55) 65%,
-        transparent
-      );
-    }
+			to {
+				transform: translate(60px, 80px) scale(1.1);
+			}
+		}
 
-    @keyframes cardIn {
-      from { opacity: 0; transform: translateY(24px) scale(0.97); }
-      to   { opacity: 1; transform: translateY(0) scale(1); }
-    }
+		@keyframes drift2 {
+			from {
+				transform: translate(0, 0) scale(1);
+			}
 
-    .icon-wrap {
-      width: 68px;
-      height: 68px;
-      border-radius: 20px;
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      box-shadow:
-        0 4px 16px rgba(0, 0, 0, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.25);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 28px;
-      font-size: 30px;
-      animation: cardIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.08s both;
-    }
+			to {
+				transform: translate(-50px, -70px) scale(1.15);
+			}
+		}
 
-    h1 {
-      font-size: 24px;
-      font-weight: 600;
-      letter-spacing: -0.4px;
-      color: rgba(255, 255, 255, 0.95);
-      margin-bottom: 10px;
-      animation: cardIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.12s both;
-    }
+		.orb {
+			position: fixed;
+			border-radius: 50%;
+			pointer-events: none;
+		}
 
-    p {
-      font-size: 14px;
-      font-weight: 400;
-      line-height: 1.65;
-      color: rgba(255, 255, 255, 0.5);
-      margin-bottom: 32px;
-      animation: cardIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.16s both;
-    }
+		.orb-1 {
+			width: 300px;
+			height: 300px;
+			background: radial-gradient(circle, rgba(255, 100, 180, 0.12) 0%, transparent 70%);
+			top: 40%;
+			left: 20%;
+			animation: drift1 10s ease-in-out 2s infinite alternate;
+		}
 
-    .url-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 7px 14px;
-      border-radius: 50px;
-      background: rgba(255, 255, 255, 0.07);
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      font-size: 11px;
-      color: rgba(255, 255, 255, 0.45);
-      margin-bottom: 28px;
-      font-family: monospace;
-      letter-spacing: 0.03em;
-      animation: cardIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
-    }
+		.orb-2 {
+			width: 350px;
+			height: 350px;
+			background: radial-gradient(circle, rgba(0, 220, 180, 0.1) 0%, transparent 70%);
+			top: 10%;
+			right: 15%;
+			animation: drift2 13s ease-in-out 1s infinite alternate;
+		}
 
-    .url-dot {
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background: rgba(220, 220, 220, 0.6);
-      flex-shrink: 0;
-    }
+		.glass-card {
+			position: relative;
+			width: 420px;
+			padding: 48px 44px;
+			border-radius: 32px;
+			background: linear-gradient(135deg,
+					rgba(255, 255, 255, 0.12) 0%,
+					rgba(255, 255, 255, 0.05) 50%,
+					rgba(255, 255, 255, 0.08) 100%);
+			backdrop-filter: blur(40px) saturate(180%);
+			-webkit-backdrop-filter: blur(40px) saturate(180%);
+			border: 1px solid rgba(255, 255, 255, 0.18);
+			box-shadow:
+				0 8px 32px rgba(0, 0, 0, 0.4),
+				0 2px 8px rgba(0, 0, 0, 0.3),
+				inset 0 1px 0 rgba(255, 255, 255, 0.25),
+				inset 0 -1px 0 rgba(255, 255, 255, 0.06);
+			text-align: center;
+			animation: cardIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+		}
 
-    .btn {
-      display: block;
-      width: 100%;
-      padding: 14px 24px;
-      border-radius: 14px;
-      border: 1px solid rgba(255, 255, 255, 0.22);
-      background: rgba(255, 255, 255, 0.12);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      color: rgba(255, 255, 255, 0.92);
-      font-size: 14px;
-      font-weight: 500;
-      font-family: 'Inter', sans-serif;
-      letter-spacing: 0.01em;
-      cursor: pointer;
-      transition:
-        transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1),
-        background 0.2s ease,
-        box-shadow 0.2s ease,
-        border-color 0.2s ease;
-      box-shadow:
-        0 2px 12px rgba(0, 0, 0, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.22),
-        inset 0 -1px 0 rgba(0, 0, 0, 0.3);
-      position: relative;
-      overflow: hidden;
-      animation: cardIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.24s both;
-    }
+		.glass-card::before {
+			content: '';
+			position: absolute;
+			inset: 0;
+			border-radius: inherit;
+			background: linear-gradient(120deg,
+					transparent 20%,
+					rgba(255, 255, 255, 0.07) 50%,
+					transparent 80%);
+			pointer-events: none;
+		}
 
-    .btn::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        120deg,
-        transparent 30%,
-        rgba(255, 255, 255, 0.07) 50%,
-        transparent 70%
-      );
-      transform: translateX(-100%);
-      transition: transform 0.5s ease;
-    }
+		.glass-card::after {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 16px;
+			right: 16px;
+			height: 1px;
+			background: linear-gradient(90deg,
+					transparent,
+					rgba(255, 255, 255, 0.5) 40%,
+					rgba(255, 255, 255, 0.5) 60%,
+					transparent);
+			border-radius: 50%;
+		}
 
-    .btn:hover::before { transform: translateX(100%); }
+		@keyframes cardIn {
+			from {
+				opacity: 0;
+				transform: translateY(30px) scale(0.96);
+			}
 
-    .btn:hover {
-      transform: translateY(-1px) scale(1.005);
-      background: rgba(255, 255, 255, 0.18);
-      border-color: rgba(255, 255, 255, 0.32);
-      box-shadow:
-        0 8px 28px rgba(0, 0, 0, 0.5),
-        inset 0 1px 0 rgba(255, 255, 255, 0.28),
-        inset 0 -1px 0 rgba(0, 0, 0, 0.3);
-    }
+			to {
+				opacity: 1;
+				transform: translateY(0) scale(1);
+			}
+		}
 
-    .btn:active { transform: translateY(0) scale(0.985); }
+		.icon-wrap {
+			width: 72px;
+			height: 72px;
+			border-radius: 22px;
+			background: linear-gradient(145deg,
+					rgba(255, 255, 255, 0.18) 0%,
+					rgba(255, 255, 255, 0.06) 100%);
+			border: 1px solid rgba(255, 255, 255, 0.22);
+			box-shadow:
+				0 4px 16px rgba(0, 0, 0, 0.3),
+				inset 0 1px 0 rgba(255, 255, 255, 0.3);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin: 0 auto 28px;
+			font-size: 32px;
+			animation: cardIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
+		}
 
-    #status {
-      margin-top: 16px;
-      font-size: 12px;
-      color: rgba(255, 255, 255, 0.3);
-      min-height: 18px;
-      letter-spacing: 0.02em;
-      transition: color 0.3s ease;
-    }
+		h1 {
+			font-size: 26px;
+			font-weight: 600;
+			letter-spacing: -0.5px;
+			color: rgba(255, 255, 255, 0.95);
+			margin-bottom: 10px;
+			animation: cardIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both;
+		}
 
-    #status.success { color: rgba(210, 210, 210, 0.8); }
-    #status.error   { color: rgba(255, 120, 120, 0.75); }
-  </style>
+		p {
+			font-size: 14px;
+			font-weight: 400;
+			line-height: 1.65;
+			color: rgba(255, 255, 255, 0.5);
+			margin-bottom: 36px;
+			animation: cardIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
+		}
+
+		.url-pill {
+			display: inline-flex;
+			align-items: center;
+			gap: 8px;
+			padding: 8px 16px;
+			border-radius: 50px;
+			background: rgba(255, 255, 255, 0.06);
+			border: 1px solid rgba(255, 255, 255, 0.12);
+			font-size: 12px;
+			color: rgba(255, 255, 255, 0.4);
+			margin-bottom: 32px;
+			font-family: monospace;
+			letter-spacing: 0.02em;
+			animation: cardIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.25s both;
+		}
+
+		.url-dot {
+			width: 6px;
+			height: 6px;
+			border-radius: 50%;
+			background: rgba(100, 220, 140, 0.7);
+			flex-shrink: 0;
+			box-shadow: 0 0 6px rgba(100, 220, 140, 0.5);
+		}
+
+		.btn {
+			display: block;
+			width: 100%;
+			padding: 15px 24px;
+			border-radius: 16px;
+			border: 1px solid rgba(255, 255, 255, 0.22);
+			background: linear-gradient(135deg,
+					rgba(255, 255, 255, 0.2) 0%,
+					rgba(255, 255, 255, 0.08) 100%);
+			backdrop-filter: blur(20px);
+			-webkit-backdrop-filter: blur(20px);
+			color: rgba(255, 255, 255, 0.95);
+			font-size: 15px;
+			font-weight: 500;
+			font-family: 'Inter', sans-serif;
+			letter-spacing: 0.01em;
+			cursor: pointer;
+			transition:
+				transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1),
+				background 0.2s ease,
+				box-shadow 0.2s ease,
+				border-color 0.2s ease;
+			box-shadow:
+				0 4px 16px rgba(0, 0, 0, 0.25),
+				inset 0 1px 0 rgba(255, 255, 255, 0.3),
+				inset 0 -1px 0 rgba(255, 255, 255, 0.06);
+			position: relative;
+			overflow: hidden;
+			animation: cardIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.3s both;
+		}
+
+		.btn::before {
+			content: '';
+			position: absolute;
+			inset: 0;
+			background: linear-gradient(120deg,
+					transparent 30%,
+					rgba(255, 255, 255, 0.06) 50%,
+					transparent 70%);
+			transform: translateX(-100%);
+			transition: transform 0.5s ease;
+		}
+
+		.btn:hover::before {
+			transform: translateX(100%);
+		}
+
+		.btn:hover {
+			transform: translateY(-2px) scale(1.01);
+			background: linear-gradient(135deg,
+					rgba(255, 255, 255, 0.26) 0%,
+					rgba(255, 255, 255, 0.12) 100%);
+			box-shadow:
+				0 8px 28px rgba(0, 0, 0, 0.35),
+				inset 0 1px 0 rgba(255, 255, 255, 0.4),
+				inset 0 -1px 0 rgba(255, 255, 255, 0.08);
+			border-color: rgba(255, 255, 255, 0.32);
+		}
+
+		.btn:active {
+			transform: translateY(0) scale(0.98);
+		}
+
+		#status {
+			margin-top: 18px;
+			font-size: 12px;
+			color: rgba(255, 255, 255, 0.35);
+			min-height: 18px;
+			letter-spacing: 0.02em;
+			transition: color 0.3s ease;
+		}
+
+		#status.success {
+			color: rgba(100, 220, 140, 0.8);
+		}
+
+		#status.error {
+			color: rgba(255, 110, 110, 0.8);
+		}
+	</style>
 </head>
+
 <body>
 
-  <div class="bg-texture"></div>
+	<div class="orb orb-1"></div>
+	<div class="orb orb-2"></div>
 
-  <div class="glass-card">
-    <div class="icon-wrap">⬡</div>
-    <h1>GemAlert</h1>
-    <p>Opens the GemAlert app inside a clean about:blank window.</p>
-    <div class="url-pill">
-      <span class="url-dot"></span>
-      badideahere.github.io/gemalertmain
-    </div>
-    <button class="btn" onclick="openInBlank()">Open in about:blank</button>
-    <div id="status"></div>
-  </div>
+	<div class="glass-card">
+		<div class="icon-wrap">⬡</div>
+		<h1>GemAlert</h1>
+		<p>Opens the GemAlert app inside a clean about:blank window.</p>
+		<div class="url-pill">
+			<span class="url-dot"></span>
+			badideahere.github.io/gemalert
+		</div>
+		<button class="btn" onclick="openInBlank()">Open in about:blank</button>
+		<div id="status"></div>
+	</div>
 
-  <script>
-    function openInBlank() {
-      var url = "https://badideahere.github.io/gemalertmain/";
+	<script>
+		function openInBlank() {
+      var url = "https://badideahere.github.io/gemalert/";
       var status = document.getElementById("status");
       var win = window.open("about:blank", "_blank");
 
@@ -247,7 +335,12 @@
         return;
       }
 
-      win.location.href = url;
+      status.textContent = "Opening…";
+      status.className = "";
+
+      win.document.open();
+      win.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"/><title>GemAlert</title><style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#0d1117;}iframe{width:100vw;height:100vh;border:none;display:block;}</style></head><body><iframe src="' + url + '" sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-top-navigation"></iframe></body></html>');
+      win.document.close();
 
       status.textContent = "Opened in about:blank ✓";
       status.className = "success";
@@ -257,7 +350,8 @@
         status.className = "";
       }, 3000);
     }
-  </script>
+	</script>
 
 </body>
+
 </html>
