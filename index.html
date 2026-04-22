@@ -104,4 +104,208 @@
       pointer-events: none;
     }
 
-    /* Top highlig
+    /* Top highlight */
+    .glass-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 20px;
+      right: 20px;
+      height: 1px;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.4) 35%,
+        rgba(255, 255, 255, 0.4) 65%,
+        transparent
+      );
+    }
+
+    @keyframes cardIn {
+      from {
+        opacity: 0;
+        transform: translateY(24px) scale(0.97);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .icon-wrap {
+      width: 68px;
+      height: 68px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      box-shadow:
+        0 4px 16px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.18);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 28px;
+      font-size: 30px;
+      animation: cardIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.08s both;
+    }
+
+    h1 {
+      font-size: 24px;
+      font-weight: 600;
+      letter-spacing: -0.4px;
+      color: rgba(255, 255, 255, 0.92);
+      margin-bottom: 10px;
+      animation: cardIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.12s both;
+    }
+
+    p {
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.65;
+      color: rgba(255, 255, 255, 0.38);
+      margin-bottom: 32px;
+      animation: cardIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.16s both;
+    }
+
+    .url-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 14px;
+      border-radius: 50px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.3);
+      margin-bottom: 28px;
+      font-family: monospace;
+      letter-spacing: 0.03em;
+      animation: cardIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
+    }
+
+    .url-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: rgba(200, 200, 200, 0.5);
+      flex-shrink: 0;
+    }
+
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 14px 24px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: rgba(255, 255, 255, 0.09);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      color: rgba(255, 255, 255, 0.88);
+      font-size: 14px;
+      font-weight: 500;
+      font-family: 'Inter', sans-serif;
+      letter-spacing: 0.01em;
+      cursor: pointer;
+      transition:
+        transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1),
+        background 0.2s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
+      box-shadow:
+        0 2px 12px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.18),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+      position: relative;
+      overflow: hidden;
+      animation: cardIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.24s both;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        120deg,
+        transparent 30%,
+        rgba(255, 255, 255, 0.05) 50%,
+        transparent 70%
+      );
+      transform: translateX(-100%);
+      transition: transform 0.5s ease;
+    }
+
+    .btn:hover::before { transform: translateX(100%); }
+
+    .btn:hover {
+      transform: translateY(-1px) scale(1.005);
+      background: rgba(255, 255, 255, 0.13);
+      border-color: rgba(255, 255, 255, 0.24);
+      box-shadow:
+        0 6px 24px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.24),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    .btn:active { transform: translateY(0) scale(0.985); }
+
+    #status {
+      margin-top: 16px;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.28);
+      min-height: 18px;
+      letter-spacing: 0.02em;
+      transition: color 0.3s ease;
+    }
+
+    #status.success { color: rgba(200, 200, 200, 0.7); }
+    #status.error   { color: rgba(255, 120, 120, 0.7); }
+  </style>
+</head>
+<body>
+
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+
+  <div class="glass-card">
+    <div class="icon-wrap">⬡</div>
+    <h1>GemAlert</h1>
+    <p>Opens the GemAlert app inside a clean about:blank window.</p>
+    <div class="url-pill">
+      <span class="url-dot"></span>
+      badideahere.github.io/gemalert
+    </div>
+    <button class="btn" onclick="openInBlank()">Open in about:blank</button>
+    <div id="status"></div>
+  </div>
+
+  <script>
+    function openInBlank() {
+      var url = "https://badideahere.github.io/gemalert/";
+      var status = document.getElementById("status");
+      var win = window.open("about:blank", "_blank");
+
+      if (!win) {
+        status.textContent = "Popup blocked — allow popups and try again.";
+        status.className = "error";
+        return;
+      }
+
+      status.textContent = "Opening…";
+      status.className = "";
+
+      win.document.open();
+      win.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"/><title>GemAlert</title><style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#000;}iframe{width:100vw;height:100vh;border:none;display:block;}</style></head><body><iframe src="' + url + '" sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-top-navigation"></iframe></body></html>');
+      win.document.close();
+
+      status.textContent = "Opened in about:blank ✓";
+      status.className = "success";
+
+      setTimeout(function() {
+        status.textContent = "";
+        status.className = "";
+      }, 3000);
+    }
+  </script>
+
+</body>
+</html>
