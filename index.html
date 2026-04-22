@@ -24,7 +24,6 @@
       position: relative;
     }
 
-    /* Background noise texture for glass to refract against */
     .bg-texture {
       position: fixed;
       inset: 0;
@@ -230,7 +229,7 @@
     <p>Opens the GemAlert app inside a clean about:blank window.</p>
     <div class="url-pill">
       <span class="url-dot"></span>
-      badideahere.github.io/gemalert
+      badideahere.github.io/gemalertmain
     </div>
     <button class="btn" onclick="openInBlank()">Open in about:blank</button>
     <div id="status"></div>
@@ -238,7 +237,7 @@
 
   <script>
     function openInBlank() {
-      var url = "https://badideahere.github.io/gemalert/";
+      var url = "https://badideahere.github.io/gemalertmain/";
       var status = document.getElementById("status");
       var win = window.open("about:blank", "_blank");
 
