@@ -247,12 +247,7 @@
         return;
       }
 
-      status.textContent = "Opening…";
-      status.className = "";
-
-      win.document.open();
-      win.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"/><title>GemAlert</title><style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#000;}iframe{width:100vw;height:100vh;border:none;display:block;}</style></head><body><iframe src="' + url + '" sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-top-navigation"></iframe></body></html>');
-      win.document.close();
+      win.location.href = url;
 
       status.textContent = "Opened in about:blank ✓";
       status.className = "success";
